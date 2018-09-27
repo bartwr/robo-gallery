@@ -513,6 +513,7 @@ img.mfp-img {
 	/* need_check */
 	.rbs-imges-grid-sizer{
 		margin: 0;
+    display: none;
 	}
 
 	.rbs-img {
