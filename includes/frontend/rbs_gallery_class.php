@@ -720,11 +720,22 @@ class roboGallery extends roboGalleryUtils{
 			return $hoverHTML;
 		}
 
+	// selectCategoryImage :: Int $categoryId -> String imageUrl 
+	function getCategoryImage($categoryId, $images) {
+		foreach ($images as $image) {
+			if($image['catid'] == $categoryId) {
+				$categoryImage = $image['image'];
+				break;
+			}
+		}
+		return $categoryImage;
+	}
+
  	function getMenu(){
  		$retHtml = '';
  		$align = get_post_meta( $this->id,  ROBO_GALLERY_PREFIX.'buttonAlign', true );
  		if($align) $align = ' rbs_gallery_align_'.$align;
- 		$retHtml .= '<div class="rbs_gallery_button'.$align.'"  id="'.$this->galleryId.'filter">';
+ 		$retHtml .= '<div class="rbs_gallery_button'.$align.'" id="'.$this->galleryId.'filter">';
  		
  		if( get_post_meta( $this->id,  ROBO_GALLERY_PREFIX.'searchEnable', true ) ){
 
@@ -768,8 +779,10 @@ class roboGallery extends roboGalleryUtils{
  		if( get_post_meta( $this->id,  ROBO_GALLERY_PREFIX.'menuTag', true ) && $this->pro && method_exists( $this ,'getTagsMenu') ){
  			$retHtml .= $this->getTagsMenu($class, $style);
  		} else {
+ 			// Category blocks
  			for ($i=0; $i < count($this->selectImages->catArray); $i++) { 
 	 			$category = $this->selectImages->catArray[$i];
+	 			$imageUrl = $this->getCategoryImage($category['id'], $this->selectImages->imgArray);
 	 			$retHtml .= '<a href="#" '
 	 								.' data-filter=".category'.$category['id'].'"'
 	 								.' class="button '.$class.'"'
