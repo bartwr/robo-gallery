@@ -591,7 +591,7 @@ class roboGallery extends roboGalleryUtils{
 				$this->returnHtml .= 
 					'<div class="rbs-img category'.$img['catid'].' '.$tagId.'" '.( isset($img['col']) && $img['col'] ?' data-columns="'.$img['col'].'" ' :'').'>'.$lineBrake.$newLine
 			            .'<div class="rbs-img-image '.(!$this->thumbClick?' rbs-lightbox':'').'" '.$descBoxData.' '.( isset($img['effect']) && $img['effect'] ?' data-overlay-effect="'.$img['effect'].'" ' :'').' >'.$lineBrake.$newLine.$newLine
-			                .'<div data-thumbnail="'.$img['thumb'].'" title="'.$lightboxText.'" data-width="'.( $sizeType ? $width : $img['sizeW'] ).'" data-height="'.($sizeType?$height:$img['sizeH']).'" ></div>'.$lineBrake.$newLine.$newLine
+			                .'<div style="background-image:url(\''.$img['thumb'].'\')" data-thumbnail="'.$img['thumb'].'" title="'.$lightboxText.'" data-width="'.( $sizeType ? $width : $img['sizeW'] ).'" data-height="'.($sizeType?$height:$img['sizeH']).'" ></div>'.$lineBrake.$newLine.$newLine
 							.'<div data-popup="'.$link.'" data-alt="'.$lightboxAlt.'" title="'.$lightboxText.'" '.($lightboxCaption?'data-caption="'.$lightboxCaption.'"':'').'></div>'.$lineBrake.$newLine.$newLine
 							.$this->getHover($img).$lineBrake.$newLine
 			            .'</div>'.$lineBrake.$newLine
@@ -607,7 +607,7 @@ class roboGallery extends roboGalleryUtils{
 				'<style type="text/css" scoped>'.$this->roboGalleryCore->getCSS().'</style>'
 				.$this->runEvent('html', 'before')		
 				.$this->roboGalleryCore->getHTML()
-				.'<div id="robo_gallery_main_block_'.$this->galleryId.'" style="'.$this->rbsMainDivStyle.'  display: none;">'
+				.'<div class="Robo-gallery" id="robo_gallery_main_block_'.$this->galleryId.'" style="'.$this->rbsMainDivStyle.'  display: none;">'
 					.($pretext?'<div>'.$pretext.'</div>':'')
 					.($menu?$this->getMenu():'').
 					'<div id="'.$this->galleryId.'" data-options="'.$this->galleryId.'" style="width:100%;" class="robo_gallery">'
@@ -785,10 +785,9 @@ class roboGallery extends roboGalleryUtils{
 	 			$imageUrl = $this->getCategoryImage($category['id'], $this->selectImages->imgArray);
 	 			$retHtml .= '<a href="#" '
 	 								.' data-filter=".category'.$category['id'].'"'
-	 								.' class="button '.$class.'"'
-	 								.' '.($style?'style="'.$style.'"':'')
-	 							.'>'
-	 								.esc_attr($category['title'])
+	 								.' class="Robo-category '.$class.'"'
+	 							.' style="background:url(\''.$imageUrl.'\') center center no-repeat;background-size:cover;">'
+	 							.'<div class="Robo-category-title">'.esc_attr($category['title']).'</div>'
 	 							.'</a>';
 	 		}	
  		}
